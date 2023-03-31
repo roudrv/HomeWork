@@ -8,7 +8,7 @@ public class Lines3 {
         String val = "ahb acb aeb aeeb adcb axeb";
         Pattern pattern = Pattern.compile("a\\wb");
         Matcher matcher = pattern.matcher(val);
-        while(matcher.find()){
+        while (matcher.find()) {
             System.out.println(matcher.group());
         }
     }
