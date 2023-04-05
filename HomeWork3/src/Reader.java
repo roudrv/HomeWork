@@ -1,17 +1,15 @@
+import java.util.ArrayList;
+
 public class Reader {
-    private String firstName;
-    private String surname;
-    private String patronymic;
+    private String nameReader;
     private int numReadTicket;
     private String faculty;
     private String dateBirth;
     private String phoneNumber;
-    private Book[] books = new Book[10];
+    private ArrayList<Book> books = new ArrayList<>(10);
 
-    public Reader(String firstName, String surname, String patronymic, int numReadTicket, String faculty, String dateBirth, String phoneNumber) {
-        this.firstName = firstName;
-        this.surname = surname;
-        this.patronymic = patronymic;
+    public Reader(String nameReader, int numReadTicket, String faculty, String dateBirth, String phoneNumber) {
+        this.nameReader = nameReader;
         this.numReadTicket = numReadTicket;
         this.faculty = faculty;
         this.dateBirth = dateBirth;
@@ -39,7 +37,7 @@ public class Reader {
             a = " книги: ";
         }
 
-        System.out.print(surname + " " + firstName.toUpperCase().charAt(0) + "." + patronymic.toUpperCase().charAt(0) + ". взял " + count + a);
+        System.out.print(nameReader + " взял " + count + a);
         if (count != 0) {
             int val = 0;
             for (Book book : books) {
@@ -58,27 +56,26 @@ public class Reader {
     }
 
     public void takeBook(Book book) {
-        for (int i = 0; i < books.length; i++) {
-            if (books[i] == null) {
-                books[i] = book;
-                break;
-            }
+        if (books.size() >= 10) {
+            System.out.println("Читатель может взять не больше 10 книг.");
         }
-        System.out.println(surname + " " + firstName.toUpperCase().charAt(0) + "." + patronymic.toUpperCase().charAt(0) + ". взял книгу " + book.getName());
+        books.add(book);
+        System.out.println(nameReader + " взял книгу " + book.getName());
     }
 
     public void returnBook(String nameBook) {
         boolean check = false;
-        for (int i = 0; i < books.length; i++) {
-            if (books[i] != null && books[i].getName().equals(nameBook)) {
-                books[i] = null;
-                System.out.println(surname + " " + firstName.toUpperCase().charAt(0) + "." + patronymic.toUpperCase().charAt(0) + ". вернул книгу " + nameBook);
+        for (int i = 0; i < books.size(); i++) {
+            if (books.get(i).getName().equals(nameBook)) {
+                books.remove(i);
+                System.out.println(nameReader + " вернул книгу " + nameBook);
+                System.out.println();
                 check = true;
                 break;
             }
         }
         if (!check) {
-            System.out.println(surname + " " + firstName.toUpperCase().charAt(0) + "." + patronymic.toUpperCase().charAt(0) + ". не хранит книгу " + nameBook);
+            System.out.println(nameReader + " не хранит книгу " + nameBook);
             System.out.println();
         }
     }

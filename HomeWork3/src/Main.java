@@ -1,10 +1,11 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         int action;
         Scanner scanner = new Scanner(System.in);
-        Reader[] readers = new Reader[10];
+        ArrayList<Reader> readers = new ArrayList<>();
 
         do {
             System.out.println("1 -- Добавить нового читателя");
@@ -19,36 +20,23 @@ public class Main {
             scanner.nextLine();
             switch (action) {
                 case 1: {
-                    boolean isFull = true;
-                    for (int i = 0; i < readers.length; i++) {
-                        if (readers[i] == null) {
-                            System.out.println("Введите фамилию");
-                            String surname = scanner.nextLine();
-                            System.out.println("Введите имя");
-                            String firstName = scanner.nextLine();
-                            System.out.println("Введите Отчество");
-                            String patronymic = scanner.nextLine();
-                            System.out.println("Введите номер читательского билета(числа)");
-                            int numReadTicket = scanner.nextInt();
-                            scanner.nextLine();
-                            System.out.println("Введите факультет");
-                            String faculty = scanner.nextLine();
-                            System.out.println("Введите дату рождения");
-                            String dateBirth = scanner.nextLine();
-                            System.out.println("Введите телефон");
-                            String phoneNumber = scanner.nextLine();
+                    System.out.println("Введите ФИО читателя");
+                    String nameReader = scanner.nextLine();
+                    System.out.println("Введите номер читательского билета(числа)");
+                    int numReadTicket = scanner.nextInt();
+                    scanner.nextLine();
+                    System.out.println("Введите факультет");
+                    String faculty = scanner.nextLine();
+                    System.out.println("Введите дату рождения");
+                    String dateBirth = scanner.nextLine();
+                    System.out.println("Введите телефон");
+                    String phoneNumber = scanner.nextLine();
 
-
-                            readers[i] = new Reader(firstName, surname, patronymic, numReadTicket, faculty, dateBirth, phoneNumber);
-                            isFull = false;
-                            System.out.println();
-                            break;
-                        }
+                    boolean check = readers.add(new Reader(nameReader, numReadTicket, faculty, dateBirth, phoneNumber));
+                    if (check) {
+                        System.out.println("Читатель добавлен!");
                     }
-                    if (isFull) {
-                        System.out.println("Количество читателей уже максимальное");
-                        System.out.println();
-                    }
+                    System.out.println();
                     break;
                 }
 
@@ -62,14 +50,16 @@ public class Main {
                     String text = scanner.nextLine();
 
                     Book newBook = new Book(nameBook, authorName, text);
+
                     System.out.println("Введите номер билета");
                     int numReadTicket = scanner.nextInt();
                     scanner.nextLine();
+
                     boolean found = false;
 
-                    for (int i = 0; i < readers.length; i++) {
-                        if (readers[i] != null && readers[i].getNumReadTicket() == numReadTicket) {
-                            readers[i].takeBook(newBook);
+                    for (Reader reader : readers) {
+                        if (reader.getNumReadTicket() == numReadTicket) {
+                            reader.takeBook(newBook);
                             found = true;
                             System.out.println();
                             break;
@@ -88,11 +78,12 @@ public class Main {
                     System.out.println("Введите номер билета");
                     int numReadTicket = scanner.nextInt();
                     scanner.nextLine();
+
                     boolean found = false;
 
-                    for (int i = 0; i < readers.length; i++) {
-                        if (readers[i] != null && readers[i].getNumReadTicket() == numReadTicket) {
-                            readers[i].returnBook(nameBook);
+                    for (Reader reader : readers) {
+                        if (reader.getNumReadTicket() == numReadTicket) {
+                            reader.returnBook(nameBook);
                             found = true;
                             break;
                         }
@@ -110,14 +101,15 @@ public class Main {
                     scanner.nextLine();
                     boolean found = false;
 
-                    for (int i = 0; i < readers.length; i++) {
-                        if (readers[i] != null && readers[i].getNumReadTicket() == numReadTicket) {
-                            readers[i].printStatus();
+                    for (Reader reader : readers) {
+                        if (reader.getNumReadTicket() == numReadTicket) {
+                            reader.printStatus();
                             found = true;
                             System.out.println();
                             break;
                         }
                     }
+
                     if (!found) {
                         System.out.println("Такого пользователя нет");
                         System.out.println();
@@ -127,9 +119,7 @@ public class Main {
 
                 case 5: {
                     for (Reader reader : readers) {
-                        if (reader != null) {
-                            reader.printStatus();
-                        }
+                        reader.printStatus();
                     }
                     System.out.println();
                     break;
@@ -147,5 +137,7 @@ public class Main {
             }
 
         } while (action != 6);
+
+        scanner.close();
     }
 }
