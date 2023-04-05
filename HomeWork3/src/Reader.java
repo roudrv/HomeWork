@@ -1,12 +1,12 @@
 import java.util.ArrayList;
 
 public class Reader {
-    private String nameReader;
-    private int numReadTicket;
-    private String faculty;
-    private String dateBirth;
-    private String phoneNumber;
-    private ArrayList<Book> books = new ArrayList<>(10);
+    private final String nameReader;
+    private final int numReadTicket;
+    private final String faculty;
+    private final String dateBirth;
+    private final String phoneNumber;
+    private final ArrayList<Book> books = new ArrayList<>(10);
 
     public Reader(String nameReader, int numReadTicket, String faculty, String dateBirth, String phoneNumber) {
         this.nameReader = nameReader;
