@@ -58,6 +58,7 @@ public class Reader {
     public void takeBook(Book book) {
         if (books.size() >= 10) {
             System.out.println("Читатель может взять не больше 10 книг.");
+            return;
         }
         books.add(book);
         System.out.println(nameReader + " взял книгу " + book.getName());
