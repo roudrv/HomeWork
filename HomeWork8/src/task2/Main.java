@@ -2,7 +2,6 @@ package task2;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 public class Main {
     public static void main(String[] args) {
@@ -29,15 +28,12 @@ public class Main {
         return map;
     }
 
-    public static <K> void  printMap(Map<K, Integer> map){
+    public static <K> void printMap(Map<K, Integer> map) {
         System.out.print("{");
         int count = 0;
-        for(Map.Entry<K, Integer> val: map.entrySet()){
-            if(count != 0){
-                System.out.print(", " + val.getKey() + ":" + val.getValue());
-            }else{
-                System.out.print(val.getKey() + ":" + val.getValue());
-            }
+        for (Map.Entry<K, Integer> val : map.entrySet()) {
+            String v = (count != 0 ? ", " : "");
+            System.out.print(v + val.getKey() + ":" + val.getValue());
             count++;
         }
         System.out.println("}");
