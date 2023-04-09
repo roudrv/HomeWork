@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Reader {
+public class Reader implements Serializable {
     private final String nameReader;
     private final int numReadTicket;
     private final String faculty;

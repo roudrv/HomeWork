@@ -5,7 +5,7 @@ public class Main {
     public static void main(String[] args) {
         int action;
         Scanner scanner = new Scanner(System.in);
-        ArrayList<Reader> readers = new ArrayList<>();
+        ArrayList<Reader> readers = (ArrayList<Reader>) FileUtil.restoreReadersList();
 
         do {
             System.out.println("1 -- Добавить нового читателя");
@@ -127,6 +127,12 @@ public class Main {
 
                 case 6: {
                     System.out.println("Завершаем программу");
+                    boolean check = FileUtil.saveReadersList(readers);
+                    if (check) {
+                        System.out.println("Данные сохранились");
+                    } else {
+                        System.out.println("Данные не сохранились");
+                    }
                     break;
                 }
 
